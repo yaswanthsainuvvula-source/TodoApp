@@ -23,9 +23,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-zff1^$2qxlontze8ejie@9joxw)ak$dr&x=a@1(mqvjqthf9wc'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+
+ALLOWED_HOSTS = ['https://todoapp-gou0.onrender.com/']
+CSRF_TRUSTED_ORIGINS = ['https://todoapp-gou0.onrender.com/']
+DEBUG = False
 
 
 # Application definition
@@ -126,3 +128,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL='app1.User'
 LOGIN_REDIRECT_URL = '/todo/'  
 LOGIN_URL = '/login/'
+
