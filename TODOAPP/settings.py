@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/5.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
-
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -20,14 +20,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-zff1^$2qxlontze8ejie@9joxw)ak$dr&x=a@1(mqvjqthf9wc'
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
-
-ALLOWED_HOSTS = ['todoapp-gou0.onrender.com']
-CSRF_TRUSTED_ORIGINS = ['https://todoapp-gou0.onrender.com']
 DEBUG = False
+ALLOWED_HOSTS = ['*']
+
 
 
 # Application definition
@@ -55,7 +54,7 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'TODOAPP.urls'
 
-import os
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -119,7 +118,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+SECRET_KEY = os.environ.get('SECRET_KEY', 'unsafe-secret')
+
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
