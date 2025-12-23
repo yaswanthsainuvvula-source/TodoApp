@@ -19,6 +19,7 @@ from django.urls import path
 from .views import todo_page,delete_task
 
 
+
 urlpatterns = [
 path('',todo_page,name='todo_page'),
 path('<int:task_id>/', todo_page, name='todo_page_edit'),
