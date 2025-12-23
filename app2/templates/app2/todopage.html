@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Todo-App</title>
+
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+/* Reset & Global */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(135deg, #1e3c72, #2a5298); /* Dark gradient background */
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    padding-top: 80px;
+    color: #f0f0f0;
+}
+
+/* Container */
+.container {
+    background: rgba(30, 30, 40, 0.85); /* Dark glass */
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    width: 500px;
+    max-width: 95%;
+    padding: 50px 35px;
+    border-radius: 25px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Heading */
+h2 {
+    text-align: center;
+    color: #fff;
+    font-size: 36px;
+    margin-bottom: 35px;
+    font-weight: 800;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.4);
+}
+
+/* Form */
+form {
+    display: flex;
+    margin-bottom: 35px;
+    gap: 12px;
+}
+
+input[type="text"] {
+    flex: 1;
+    padding: 16px 20px;
+    font-size: 16px;
+    border-radius: 15px;
+    border: none;
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    outline: none;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+}
+
+input[type="text"]::placeholder {
+    color: #ccc;
+}
+
+input[type="text"]:focus {
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
+}
+
+/* Button */
+button {
+    padding: 16px 25px;
+    border: none;
+    border-radius: 15px;
+    background: linear-gradient(135deg, #ff758c, #ff7eb3);
+    color: #fff;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 20px rgba(255, 118, 179, 0.3);
+}
+
+button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 25px rgba(255, 118, 179, 0.5);
+}
+
+/* Task List */
+ul {
+    list-style: none;
+    padding: 0;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+/* Scrollbar */
+ul::-webkit-scrollbar {
+    width: 8px;
+}
+
+ul::-webkit-scrollbar-track {
+    background: rgba(255,255,255,0.05);
+    border-radius: 10px;
+}
+
+ul::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,0.3);
+    border-radius: 10px;
+}
+
+/* Tasks */
+li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(50, 50, 60, 0.9);
+    backdrop-filter: blur(10px);
+    padding: 18px 22px;
+    margin-bottom: 18px;
+    border-radius: 18px;
+    font-size: 16px;
+    color: #fff;
+    box-shadow: 0 6px 25px rgba(0,0,0,0.3);
+    transition: all 0.3s ease;
+}
+
+li:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+}
+
+/* Completed task */
+li.completed .task-text {
+    text-decoration: line-through;
+    color: #a0a0a0;
+}
+
+/* Task text */
+li .task-text {
+    flex: 1;
+    overflow-wrap: anywhere;
+}
+
+/* Icons */
+li .icons {
+    display: flex;
+    gap: 15px;
+    margin-left: 15px;
+}
+
+li .icons a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 20px;
+    transition: all 0.3s ease;
+}
+
+li .icons a:hover {
+    color: #ff7eb3;
+    transform: scale(1.2);
+}
+
+/* Empty message */
+li.empty {
+    text-align: center;
+    font-style: italic;
+    color: #ccc;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .container {
+        width: 90%;
+        padding: 35px 25px;
+    }
+
+    h2 {
+        font-size: 28px;
+    }
+
+    input[type="text"], button {
+        padding: 14px;
+        font-size: 14px;
+    }
+
+    li {
+        padding: 14px 16px;
+        font-size: 14px;
+    }
+
+    li .icons a {
+        font-size: 18px;
+    }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Todo List</h2>
+
+    <form method="post">
+        {% csrf_token %}
+        <input type="text" name="task" placeholder="Enter task here" required value="{{ edit_task.task|default:'' }}">
+        <button type="submit">{% if edit_task %}Update Task{% else %}Add{% endif %}</button>
+    </form>
+
+    <ul>
+        {% for task in tasks %}
+        <li class="{% if task.completed %}completed{% endif %}">
+            <div class="task-text">{{ task.task }}</div>
+            <div class="icons">
+                <a href="{% url 'todo_page_edit' task.id %}">✎</a>
+                <a href="{% url 'delete_task' task.id %}">🗑</a>
+            </div>
+        </li>
+        {% empty %}
+        <li class="empty">No tasks yet!</li>
+        {% endfor %}
+    </ul>
+</div>
+
+</body>
+</html>

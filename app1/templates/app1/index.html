@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>TodoApp</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+/* RESET & GLOBAL */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    background: linear-gradient(rgba(15,23,42,0.75), rgba(15,23,42,0.75)), 
+                url("https://images.unsplash.com/photo-1522202176988-66273c2fd55f") center/cover no-repeat;
+    display: flex;
+    flex-direction: column;
+}
+
+/* NAVBAR */
+.navbar {
+    padding: 20px 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(10px);
+}
+
+.nav-left {
+    display: flex;
+    align-items: center;
+}
+
+.nav-left img {
+    height: 42px;
+    margin-right: 12px;
+}
+
+.nav-left span {
+    font-size: 28px;
+    font-weight: 800;
+    color: #ffffff;
+}
+
+.nav-right a {
+    text-decoration: none;
+    margin-left: 16px;
+    padding: 12px 28px;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 15px;
+    background: #ffffff;
+    color: #0f172a;
+}
+
+.nav-right a.signup {
+    background: linear-gradient(135deg,#22c55e,#16a34a);
+    color: #ffffff;
+}
+
+/* HERO SECTION */
+.hero {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 80px 20px;
+}
+
+.hero-box {
+    width: 90%;
+    max-width: 1400px;
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 60px 50px;
+    display: flex;
+    gap: 60px;
+    box-shadow: 0 25px 60px rgba(0,0,0,0.25);
+    align-items: center;
+}
+
+.hero-text {
+    flex: 1.3;
+}
+
+.hero-text h1 {
+    font-size: 48px;
+    color: #0f172a;
+    line-height: 1.2;
+    margin-bottom: 24px;
+}
+
+.hero-text p {
+    font-size: 18px;
+    color: #475569;
+    line-height: 1.8;
+}
+
+/* HERO IMAGE */
+.hero-image {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.hero-image img {
+    width: 100%;
+    border-radius: 16px;
+    object-fit: cover;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+}
+
+/* FOOTER */
+.footer {
+    text-align: center;
+    padding: 18px;
+    font-size: 14px;
+    color: rgba(255,255,255,0.85);
+    background: rgba(15,23,42,0.6);
+}
+
+/* RESPONSIVE */
+@media (max-width: 1024px) {
+    .hero-box {
+        flex-direction: column-reverse;
+        padding: 40px 30px;
+        gap: 40px;
+    }
+    .hero-text h1 {
+        font-size: 36px;
+        text-align: center;
+    }
+    .hero-text p {
+        text-align: center;
+    }
+}
+
+@media (max-width: 600px) {
+    .navbar {
+        padding: 15px 30px;
+    }
+    .nav-left span {
+        font-size: 22px;
+    }
+    .hero-box {
+        padding: 30px 20px;
+    }
+    .hero-text h1 {
+        font-size: 28px;
+    }
+    .hero-text p {
+        font-size: 16px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="navbar">
+    <div class="nav-left">
+        <img src="https://cdn-icons-png.flaticon.com/512/4697/4697260.png" alt="TodoApp Logo">
+        <span>TodoApp</span>
+    </div>
+    <div class="nav-right">
+        <a href="login/">Login</a>
+        <a href="signup/" class="signup">Signup</a>
+    </div>
+</div>
+
+<div class="hero">
+    <div class="hero-box">
+        <div class="hero-text">
+            <h1>Manage Tasks Smarter</h1>
+            <p>
+                TodoApp helps you organize tasks, plan your day, and stay productive with a clean, powerful workflow.
+                Built for focus and simplicity.
+            </p>
+        </div>
+        <div class="hero-image">
+            <img src="https://plus.unsplash.com/premium_photo-1683309568772-57011d6c1b7b" alt="TodoApp Illustration">
+        </div>
+    </div>
+</div>
+
+<div class="footer">
+    © 2025 TodoApp · Built with Django
+</div>
+
+</body>
+</html>
